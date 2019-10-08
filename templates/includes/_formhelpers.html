@@ -1,0 +1,167 @@
+<!-- https://gist.github.com/pwalsh/d3eb06ad098abcc9cb1d -->
+
+<!-- SIMPLE FIELD -->
+{% macro render_noError_noLabel_field(field) %}
+
+    {{ field(class_="form-control", **kwargs)|safe}}
+    <br>
+
+{% endmacro %}
+
+
+<!--  FIELD W/ ERROR & LABEL (DEFAULT) -->
+{% macro render_field(field) %}
+        <label for="{{ field.name }}">{{ field.label.text }}</label>
+        {% if field.errors %}
+            {{ field(class_="form-control is-invalid", **kwargs)|safe}}
+            {% for error in field.errors %}
+                <div class="invalid-feedback d-block"> {{ error }} </div>
+            {% endfor %}
+        {% else %}
+            {{ field(class_="form-control", **kwargs)|safe}}
+        {% endif %}
+{% endmacro %}
+
+
+
+<!-- FIELD W/O ERRORS -->
+{% macro render_noError_field(field) %}
+
+    <label for="{{ field.name }}">{{ field.label.text }}</label>
+    {{ field(class_="form-control", **kwargs)|safe}}
+    <br>
+
+{% endmacro %}
+
+
+
+<!--  FIELD W/O LABELS -->
+{% macro render_noLabel_field(field) %}
+    
+    {% if field.errors %}
+        
+        {{ field(class_="form-control is-invalid", **kwargs)|safe}}
+        
+        {% for error in field.errors %}
+            <div class="invalid-feedback d-block"> {{ error }} </div>
+        {% endfor %}
+
+    {% else %}
+        {{ field(class_="form-control", **kwargs)|safe}}
+    {% endif %}
+
+{% endmacro %}
+
+
+
+
+
+
+
+<!-- CUSTOM FIELDS W/ ERRORS & LABELS (WHEN RELEVANT) -->
+
+<!-- PREFIX FIELD -->
+{% macro render_pre_field(field, preText) %}
+    
+    <div class="form-group">
+        {% if field.errors %}
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">{{ preText }}</span>
+                </div>
+                {{ field(class_="form-control is-invalid", **kwargs)|safe}}
+            </div>
+
+            {% for error in field.errors %}
+                <div class="invalid-feedback d-block"> {{ error }} </div>
+            {% endfor %}
+
+        {% else %}
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">{{ preText }}</span>
+                </div>
+                {{ field(class_="form-control", **kwargs)|safe}}
+            </div>
+        {% endif %}
+
+    </div>
+
+{% endmacro %}
+
+
+
+<!-- TEXT AREA FIELD -->
+{% macro render_text_field(field) %}
+
+    {{ field(class_="form-control", row="3", placeholder="Any comments worth noting... ", **kwargs)|safe}}
+
+{% endmacro %}
+
+
+
+<!-- RADIO FIELD -->
+{% macro render_radio_field(field) %} 
+
+    {% for subfield in field %}
+        <div class="radio">
+            {{ subfield }}
+            <label for="{{ subfield.name }}">{{ subfield.label.text }}</label>
+        </div>
+    {% endfor %}
+    
+{% endmacro %}
+
+
+
+<!-- DATE FIELD -->
+{% macro render_date_field(field) %} 
+
+    <label for="{{ field.name }}"><strong>{{ field.label.text }}</strong></label>
+    {{ field(type_="text", class_="form-control datepicker", placeholder="  DD / MM / YYYY", **kwargs)|safe }}
+
+{% endmacro %}
+
+
+
+<!-- CHECKBOX FIELD -->
+{% macro render_checkbox_field(field) %}
+
+    {% if field.errors %}
+        <div class="custom-control custom-checkbox">
+            {{ field(type_="checkbox", class_="custom-control-input is-invalid", **kwargs)|safe }}
+            <label class="custom-control-label" for="{{ field.name }}">{{ field.label.text }}</label>
+        </div>
+
+        {% for error in field.errors %}
+            <div class="invalid-feedback d-block"> {{ error }} </div>
+        {% endfor %}
+
+    {% else %}
+        <div class="custom-control custom-checkbox">
+            {{ field(type_="checkbox", class_="custom-control-input", **kwargs)|safe }}
+            <label class="custom-control-label" for="{{ field.name }}">{{ field.label.text }}</label>
+        </div>
+    {% endif %}
+
+{% endmacro %}
+
+
+
+{% macro render_multiple_fields(fields) %}
+    
+    {% for field in fields %}
+        <div class="form-group input-group">
+            
+            {{ field(class_="form-control", **kwargs)|safe}}
+
+        </div>
+    {% endfor %}
+
+    {% if fields.errors %}
+        <div class="invalid-feedback d-block"> {{ error }} </div>        
+    {% endif %}
+
+{% endmacro %}
+
+

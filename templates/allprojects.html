@@ -1,0 +1,71 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+    {% if messages %}
+        <div class="jumbotron text-center">
+            <h4>{{ messages }}</h4>
+        </div>
+    {% endif %}
+
+
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Role</th>
+                <th>Project Name</th>
+                <th>Tech</th>
+                <th>Plants</th>
+                <th>Capacity</th>
+                <th>Sharepoint</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for project, roles in projects %}
+                <tr>
+                    <td> {{ project.code }} </td>
+                    <td> {{ roles.short.upper() }} </td>
+                    <td> {{ project.name }} </td>
+                    <!-- Tech -->
+                    <td>
+                        {% for plant in project.plants %}
+                            {% for tech in plant.technologies %}
+                                {% if tech.short == 'storage' %}
+                                    {{ '+ Storage' }}
+                                {% else %}
+                                    {{ tech.short.upper() }}
+                                {% endif %}
+                            {% endfor %}
+                        <br>
+                        {% endfor %} 
+                    </td>
+                    <!-- Plants -->
+                    <td>
+                        {% for plant in project.plants %}
+                        {{ plant.name }}
+                        <br>
+                        {% endfor %} 
+                    </td>
+                    <!-- Capacity -->
+                    <td>
+                        {% for plant in project.plants %}
+                        {{ plant.capacity_ac }}
+                        <span><a>MW</a></span>
+                        <br>
+                        {% endfor %} 
+                    </td>
+                    <td>
+                        {% if project.link %}
+                            <a href="{{ project.link }}">Link</a></td>
+                        {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+{% endblock %}

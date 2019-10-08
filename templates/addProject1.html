@@ -1,0 +1,685 @@
+{% extends "layout.html" %} 
+
+{% from "includes/_formhelpers.html" import
+render_field,
+render_noLabel_field,
+render_noError_field,
+render_noError_noLabel_field,
+render_pre_field,
+render_radio_field, 
+render_checkbox_field,
+render_country_fields %} 
+
+
+{% block body %}
+
+
+   
+    <div class="py-5 text-left">
+        <h2><strong>Register A New Project</strong></h2>
+    </div>
+
+    <!-- PROJECT FORM -->
+    <form id="AddProjectForm" action="/addProject" method="POST" class="needs-validation" novalidate="">
+
+        <!-- DETAILS -->
+        <h5 class="mb-3"><strong>Project Info</strong></h5>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <h6>Project Code</h6>
+                {{ render_pre_field(projectForm.code, "PMD") }}
+            </div>
+            <div class="col-md-6 mb-3">
+                <h6>Project Name</h6>
+                {{ render_pre_field(projectForm.name, "PMD") }}
+            </div>
+        </div>                
+
+        <!-- PLANTS -->
+        <h5 class="mb-3"><strong>Plants</strong></h5>
+        <div class="row">
+            <div class="col-md-8">
+                {{ render_noLabel_field(projectForm.plants) }}
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-secondary btn-lg btn-block" type="button" data-toggle="modal" data-target="#plantFormModal">Create new plant</button>
+            </div>
+        </div>
+
+        <hr class="mb-3">
+
+
+        <!-- PROJECT MANAGEMENT -->
+        <h5 class="mb-3"><strong>Project Management</strong></h5>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                {{ render_field(projectForm.pm) }}
+            </div>
+            <div class="col-md-6 mb-3">
+                {{ render_field(projectForm.pp) }}
+            </div>
+        </div>
+
+        <!-- PROJECT SITE -->
+        <div class="mb-3">
+            {{ render_pre_field(projectForm.site, "@") }}
+        </div>
+
+
+        <hr class="mb-3">
+
+        
+        <!-- ROLE -->
+        <h5 class="mb-3"><strong>Role & Services </strong></h5>
+        <div class="row justify-content-around">
+            {{ render_radio_field(projectForm.role) }}
+        </div>
+
+        <hr class="mb-3">
+
+
+        <!-- SERVICES -->
+        <div class="row justify-content-around">
+            <div class="col-md-3">
+                {{ render_checkbox_field(projectForm.fs) }}
+                {{ render_checkbox_field(projectForm.ff) }}
+                {{ render_checkbox_field(projectForm.eya) }}
+            </div>
+            <div class="col-md-3">
+                {{ render_checkbox_field(projectForm.dd) }}
+                {{ render_checkbox_field(projectForm.cm) }}
+                {{ render_checkbox_field(projectForm.om) }}
+            </div>
+            <div class="col-md-3">
+                {{ render_checkbox_field(projectForm.bdd) }}
+                {{ render_checkbox_field(projectForm.vdd) }}
+            </div>
+            <div class="col-md-3">
+                {{ render_checkbox_field(projectForm.gov) }}
+                {{ render_checkbox_field(projectForm.bs) }}
+            </div>
+        </div>
+        
+        <!-- OTHER SERVICES -->
+        <div class="row">
+            <div class="col-md-1">
+                <br>
+                {{ render_checkbox_field(projectForm.oth) }}
+            </div>
+            <div class="col-md-5">
+                <br>
+                {{ render_noLabel_field(projectForm.other, placeholder="Other service") }}
+            </div>
+        </div>           
+
+        <hr class="mb-12">
+
+        <button class="btn btn-primary btn-lg btn-block" type="submit" name="submit-projectForm" value="projectForm">Submit</button>
+    </form>
+
+
+    <!-- PLANT FORM  -->
+    <div class="modal fade" id="plantFormModal" tabindex="-1" role="dialog" aria-labelledby="plantFormModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <form id="PlantForm" action="/addProject" method="POST" class="needs-validation" novalidate="">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="plantFormModalTitle"><strong>Register new plant</strong></h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    
+                    <div class="modal-body">
+                        
+                        <!-- DETAILS -->
+                        <div class="row">
+
+                            <!-- Plant Name -->
+                            <div class="col-md-6 mb-3">
+                                <h5 class="mb-3"><strong>Plant Name</strong></h5>
+                                <div class="form-group">              
+                                    {{ render_noLabel_field(plantForm.name, placeholder="Please find a unique plant name") }}
+                                </div>
+                            </div>
+
+                            <!-- Country-->
+                            <div class="col-md-6 mb-3">
+                                <h5 class="mb-3"><strong>Country</strong></h5>
+                                <div class="form-group">
+                                    {{ render_noLabel_field(plantForm.country) }}
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- CAPACITY & COORDINATES -->
+                        <div class="row">
+                            <!-- Capacities -->
+                            <div class="col-md-6">
+                                <h5><strong>Capacity </strong></h5> 
+                                {{ render_pre_field(plantForm.capacity_ac, "AC", placeholder="In MW up to two decimal places") }}
+                                {{ render_pre_field(plantForm.capacity_dc, "DC", placeholder="In MW up to two decimal places") }}
+                            </div>
+
+                            <!-- Coordinates -->
+                            <div class="col-md-6">
+                                <h5><strong>Coordinates </strong><small class="text-muted">(Optional)</small></h5>
+                                {{ render_pre_field(plantForm.latitude, "Latitude", placeholder="Degree decimals") }}
+                                {{ render_pre_field(plantForm.longitude, "Longitude", placeholder="Degree decimals") }}
+                            </div>
+                        </div>
+
+                        <hr class="mb-3" />
+
+                        <!-- STATUS -->
+                        <h5 class="mb-3"><strong>Status </strong></h5>
+                        <div class="row justify-content-between">
+                            {{ render_radio_field(plantForm.status) }}
+                        </div>
+
+                        <hr class="mb-3" />
+
+                        <!-- COMMENT -->
+                        <h5 class="mb-3"><strong>Comments </strong><small class="text-muted">(Optional)</small></h5>
+                        <div class="row justify-content-between">
+                            {{ render_noLabel_field(plantForm.comments, placeholder="Any comments on plant status, performance or equipment worth noting.") }}
+                        </div>
+
+                        <hr class="mb-3" />
+
+                        <!-- TECHNOLOGIES -->
+                        <h5 class="mb-3"><strong>Technology</strong></h5>
+                        <div class = "technology-form-group">
+                            <div class="row justify-content-around">
+                                <!-- Solar -->
+                                <div class="col-md-4 mb-3">
+                                    {{ render_checkbox_field(plantForm.pv) }}
+                                    {{ render_checkbox_field(plantForm.csp) }}
+                                </div>
+                                <!-- Wind -->
+                                <div class="col-md-3 mb-3">
+                                    {{ render_checkbox_field(plantForm.windon) }}
+                                    {{ render_checkbox_field(plantForm.windoff) }}
+                                </div>
+                                <!-- Wave & Tidal -->
+                                <div class="col-md-2 mb-3">
+                                    {{ render_checkbox_field(plantForm.wave) }}
+                                    {{ render_checkbox_field(plantForm.tidal) }}
+                                </div>
+                                <!-- Storage -->
+                                <div class="col-md-3 mb-3">
+                                    {{ render_checkbox_field(plantForm.storage) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="mb-3" />
+
+                        <!-- COMPONENTS & TYPES -->
+                        <div class="component-type-group">
+                            
+                            <!-- Components -->
+                            <div class="component-form-group" style="display: none;">
+                                
+                                <!-- Component title -->
+                                <div class="row justify-content-between">
+                                    <div class="col-md-12">
+                                        <h5 class="component-form-title"><strong>
+                                            <span class="text-muted">(Optional) </span>
+                                            <span class="title">Components</span>
+                                        </strong></h5>
+                                    </div>
+                                </div>
+
+                                <!-- Components -->
+                                <div class="row">
+
+                                    <div class="col-md-4 tech component-group">
+                                        
+                                        <!-- Solar PV component select field -->
+                                        <div class="row py-2"> 
+                                            <div class="col-md-12 pv component-group" style="display: none;">
+                                                <h6><strong>Solar PV Components</strong></h6>
+                                                
+                                                <!-- PV Modules -->
+                                                <div class="row no-gutters">
+                                                    <div class="col-md-4 component-group-buttons text-md-right">
+                                                        <div class="btn-group mr-2" role="group" aria-label="Second group">
+                                                            <button type="button" class="btn btn-danger remove" style="display: none"><strong>–</strong></button>
+                                                            <button type="button" class="btn btn-secondary add"><strong>+</strong></button>
+                                                            <button type="button" disabled class="btn btn-secondary counter">0</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-8" >
+                                                        <a class="title">PV Module</a>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Mounting Structures -->
+                                                <div class="row no-gutters">
+                                                    <div class="col-md-4 component-group-buttons text-md-right">
+                                                        <div class="btn-group mr-2" role="group" aria-label="Second group">
+                                                            <button type="button" class="btn btn-danger remove" style="display: none"><strong>–</strong></button>
+                                                            <button type="button" class="btn btn-secondary add"><strong>+</strong></button>
+                                                            <button type="button" disabled class="btn btn-secondary counter">0</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-8 " >
+                                                        <a class="title">Mounting Structure</a>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <!-- Solar CSP component select field -->
+                                        <div class="row py-2"> 
+                                            <div class="col-md-12 csp component-group" style="display: none;">
+                                                <h6><strong>Solar CSP Components</strong></h6>
+                                                
+                                                <!-- Reflectors -->
+                                                <div class="row no-gutters">
+                                                    <div class="col-md-4 component-group-buttons text-md-right">
+                                                        <div class="btn-group mr-2" role="group" aria-label="Second group">
+                                                            <button type="button" class="btn btn-danger remove" style="display: none"><strong>–</strong></button>
+                                                            <button type="button" class="btn btn-secondary add"><strong>+</strong></button>
+                                                            <button type="button" disabled class="btn btn-secondary counter">0</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-8" >
+                                                        <a class="title">Reflector</a>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Heating Thermal Fluids -->
+                                                <div class="row no-gutters">
+                                                    <div class="col-md-4 component-group-buttons text-md-right">
+                                                        <div class="btn-group mr-2" role="group" aria-label="Second group">
+                                                            <button type="button" class="btn btn-danger remove" style="display: none"><strong>–</strong></button>
+                                                            <button type="button" class="btn btn-secondary add"><strong>+</strong></button>
+                                                            <button type="button" disabled class="btn btn-secondary counter">0</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-8" >
+                                                        <a class="title">Heating Thermal Fluid</a>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Steam Turbine -->
+                                                <div class="row no-gutters">
+                                                    <div class="col-md-4 component-group-buttons text-md-right">
+                                                        <div class="btn-group mr-2" role="group" aria-label="Second group">
+                                                            <button type="button" class="btn btn-danger remove" style="display: none"><strong>–</strong></button>
+                                                            <button type="button" class="btn btn-secondary add"><strong>+</strong></button>
+                                                            <button type="button" disabled class="btn btn-secondary counter">0</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-8" >
+                                                        <a class="title">Turbine (Steam)</a>
+                                                    </div>
+                                                </div>
+                                                
+                                                <!-- Steam Generator -->
+                                                <div class="row no-gutters">
+                                                    <div class="col-md-4 component-group-buttons text-md-right">
+                                                        <div class="btn-group mr-2" role="group" aria-label="Second group">
+                                                            <button type="button" class="btn btn-danger remove" style="display: none"><strong>–</strong></button>
+                                                            <button type="button" class="btn btn-secondary add"><strong>+</strong></button>
+                                                            <button type="button" disabled class="btn btn-secondary counter">0</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-8" >
+                                                        <a class="title">Generator (Steam)</a>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <!-- Wind component select field -->
+                                        <div class="row py-2"> 
+                                            <div class="col-md-12 wind component-group" style="display: none;">
+                                                <h6><strong>Wind Components</strong></h6>
+                                                
+                                                <!-- Wind Turbine -->
+                                                <div class="row no-gutters">
+                                                    <div class="col-md-4 component-group-buttons text-md-right">
+                                                        <div class="btn-group mr-2" role="group" aria-label="Second group">
+                                                            <button type="button" class="btn btn-danger remove" style="display: none"><strong>–</strong></button>
+                                                            <button type="button" class="btn btn-secondary add"><strong>+</strong></button>
+                                                            <button type="button" disabled class="btn btn-secondary counter">0</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-8" >
+                                                        <a class="title">Turbine (Wind)</a>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <!-- Wave component select field -->
+                                        <div class="row py-2"> 
+                                            <div class="col-md-12 wave component-group" style="display: none;">
+                                                <h6><strong>Wave Components</strong></h6>
+                                                
+                                                <!-- Wind Generator -->
+                                                <div class="row no-gutters">
+                                                    <div class="col-md-4 component-group-buttons text-md-right">
+                                                        <div class="btn-group mr-2" role="group" aria-label="Second group">
+                                                            <button type="button" class="btn btn-danger remove" style="display: none"><strong>–</strong></button>
+                                                            <button type="button" class="btn btn-secondary add"><strong>+</strong></button>
+                                                            <button type="button" disabled class="btn btn-secondary counter">0</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-8" >
+                                                        <a class="title">Generator (Wave)</a>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <!-- Tidal component select field -->
+                                        <div class="row py-2"> 
+                                            <div class="col-md-12 tidal component-group" style="display: none;">
+                                                <h6><strong>Tidal Components</strong></h6>
+                                                
+                                                <!-- Tidal Generator -->
+                                                <div class="row no-gutters">
+                                                    <div class="col-md-4 component-group-buttons text-md-right">
+                                                        <div class="btn-group mr-2" role="group" aria-label="Second group">
+                                                            <button type="button" class="btn btn-danger remove" style="display: none"><strong>–</strong></button>
+                                                            <button type="button" class="btn btn-secondary add"><strong>+</strong></button>
+                                                            <button type="button" disabled class="btn btn-secondary counter">0</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-8" >
+                                                        <a class="title">Generator (Tidal)</a>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    
+                                    <!-- BOS component select field -->
+                                    <div class="col-md-4 bos component-group">
+                                        <div class="row py-2"> 
+                                            <div class="col-md-12">
+                                                <h6><strong>Balance of System</strong></h6>
+                                                
+                                                <!-- Delivery Station -->
+                                                <div class="row no-gutters">
+                                                        <div class="col-md-4 component-group-buttons text-md-right">
+                                                            <div class="btn-group mr-2" role="group" aria-label="Second group">
+                                                                <button type="button" class="btn btn-danger remove" style="display: none"><strong>–</strong></button>
+                                                                <button type="button" class="btn btn-secondary add"><strong>+</strong></button>
+                                                                <button type="button" disabled class="btn btn-secondary counter">0</button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-8" >
+                                                            <a class="title">Delivery Station</a>
+                                                        </div>
+                                                    </div>
+                                                
+                                                <!-- Transformer -->
+                                                <div class="row no-gutters">
+                                                    <div class="col-md-4 component-group-buttons text-md-right">
+                                                        <div class="btn-group mr-2" role="group" aria-label="Second group">
+                                                            <button type="button" class="btn btn-danger remove" style="display: none"><strong>–</strong></button>
+                                                            <button type="button" class="btn btn-secondary add"><strong>+</strong></button>
+                                                            <button type="button" disabled class="btn btn-secondary counter">0</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-8" >
+                                                        <a class="title">Transformer</a>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Inverter -->
+                                                <div class="row no-gutters">
+                                                    <div class="col-md-4 component-group-buttons text-md-right">
+                                                        <div class="btn-group mr-2" role="group" aria-label="Second group">
+                                                            <button type="button" class="btn btn-danger remove" style="display: none"><strong>–</strong></button>
+                                                            <button type="button" class="btn btn-secondary add"><strong>+</strong></button>
+                                                            <button type="button" disabled class="btn btn-secondary counter">0</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-8" >
+                                                        <a class="title">Inverter</a>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Junction Box -->
+                                                <div class="row no-gutters">
+                                                    <div class="col-md-4 component-group-buttons text-md-right">
+                                                        <div class="btn-group mr-2" role="group" aria-label="Second group">
+                                                            <button type="button" class="btn btn-danger remove" style="display: none"><strong>–</strong></button>
+                                                            <button type="button" class="btn btn-secondary add"><strong>+</strong></button>
+                                                            <button type="button" disabled class="btn btn-secondary counter">0</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-8" >
+                                                        <a class="title">Junction Box</a>
+                                                    </div>
+                                                </div>
+
+                                                <!-- AC Cables -->
+                                                <div class="row no-gutters">
+                                                    <div class="col-md-4 component-group-buttons text-md-right">
+                                                        <div class="btn-group mr-2" role="group" aria-label="Second group">
+                                                            <button type="button" class="btn btn-danger remove" style="display: none"><strong>–</strong></button>
+                                                            <button type="button" class="btn btn-secondary add"><strong>+</strong></button>
+                                                            <button type="button" disabled class="btn btn-secondary counter">0</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-8" >
+                                                        <a class="title">AC Cables</a>
+                                                    </div>
+                                                </div>
+
+                                                <!-- DC Cables -->
+                                                <div class="row no-gutters">
+                                                    <div class="col-md-4 component-group-buttons text-md-right">
+                                                        <div class="btn-group mr-2" role="group" aria-label="Second group">
+                                                            <button type="button" class="btn btn-danger remove" style="display: none"><strong>–</strong></button>
+                                                            <button type="button" class="btn btn-secondary add"><strong>+</strong></button>
+                                                            <button type="button" disabled class="btn btn-secondary counter">0</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-8" >
+                                                        <a class="title">DC Cables</a>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Foundations -->
+                                                <div class="row no-gutters">
+                                                    <div class="col-md-4 component-group-buttons text-md-right">
+                                                        <div class="btn-group mr-2" role="group" aria-label="Second group">
+                                                            <button type="button" class="btn btn-danger remove" style="display: none"><strong>–</strong></button>
+                                                            <button type="button" class="btn btn-secondary add"><strong>+</strong></button>
+                                                            <button type="button" disabled class="btn btn-secondary counter">0</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-8" >
+                                                        <a class="title">Foundations</a>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Anchors -->
+                                                <div class="row no-gutters">
+                                                    <div class="col-md-4 component-group-buttons text-md-right">
+                                                        <div class="btn-group mr-2" role="group" aria-label="Second group">
+                                                            <button type="button" class="btn btn-danger remove" style="display: none"><strong>–</strong></button>
+                                                            <button type="button" class="btn btn-secondary add"><strong>+</strong></button>
+                                                            <button type="button" disabled class="btn btn-secondary counter">0</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-8" >
+                                                        <a class="title">Anchors</a>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Energy Storage component select field -->
+                                    <div class="col-md-4 storage component-group" style="display: none;">
+                                        <div class="row py-2"> 
+                                            <div class="col-md-12">
+                                                <h6><strong>Energy Storage</strong></h6>
+                                                
+                                                <!-- Battery Storage -->
+                                                <div class="row no-gutters">
+                                                    <div class="col-md-4 component-group-buttons text-md-right">
+                                                        <div class="btn-group mr-2" role="group" aria-label="Second group">
+                                                            <button type="button" class="btn btn-danger remove" style="display: none"><strong>–</strong></button>
+                                                            <button type="button" class="btn btn-secondary add"><strong>+</strong></button>
+                                                            <button type="button" disabled class="btn btn-secondary counter">0</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-8" >
+                                                        <a class="title">Battery Storage</a>
+                                                    </div>
+                                                </div>
+                                                
+                                                <!-- Thermal Storage -->
+                                                <div class="row no-gutters">
+                                                    <div class="col-md-4 component-group-buttons text-md-right">
+                                                        <div class="btn-group mr-2" role="group" aria-label="Second group">
+                                                            <button type="button" class="btn btn-danger remove" style="display: none"><strong>–</strong></button>
+                                                            <button type="button" class="btn btn-secondary add"><strong>+</strong></button>
+                                                            <button type="button" disabled class="btn btn-secondary counter">0</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-8" >
+                                                        <a class="title">Thermal Storage</a>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Hydro Storage -->
+                                                <div class="row no-gutters">
+                                                    <div class="col-md-4 component-group-buttons text-md-right">
+                                                        <div class="btn-group mr-2" role="group" aria-label="Second group">
+                                                            <button type="button" class="btn btn-danger remove" style="display: none"><strong>–</strong></button>
+                                                            <button type="button" class="btn btn-secondary add"><strong>+</strong></button>
+                                                            <button type="button" disabled class="btn btn-secondary counter">0</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-8" >
+                                                        <a class="title">Hydro Storage</a>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Hydrogen Storage -->
+                                                <div class="row no-gutters">
+                                                    <div class="col-md-4 component-group-buttons text-md-right">
+                                                        <div class="btn-group mr-2" role="group" aria-label="Second group">
+                                                            <button type="button" class="btn btn-danger remove" style="display: none"><strong>–</strong></button>
+                                                            <button type="button" class="btn btn-secondary add"><strong>+</strong></button>
+                                                            <button type="button" disabled class="btn btn-secondary counter">0</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-8" >
+                                                        <a class="title">Hydrogen Storage</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>               
+
+                                </div>
+                                
+                            </div>
+
+                            <!-- TEMPLATE -->
+                            <!-- Types Template -->
+                            <div class="type-template-form-group" style="display: none;">
+                                {% for typeForm in plantForm.types %}
+                                    <!-- Title & Component (Hidden)-->
+                                    <div class="row">
+                                                
+                                        <!-- Title - Selected component-->
+                                        <div class="col-md-11">
+                                            <br /><h6><strong><span class="type-form-title">Template Type Form</span></strong></h6>  
+                                        </div>
+                                        
+                                        <!-- Hidden component field -->
+                                        <div class="col-md-1" style="display: in-line">
+                                            {{ typeForm.component(class_="form-control type-component-form", value_="") }}
+                                        </div>
+
+                                    </div>
+
+                                    <!-- Types Form & remove button  -->
+                                    <div class="row type-form-group">                         
+
+                                        <!-- Types, models, suppliers & quantities -->
+                                        <div class="col-md-12">
+
+                                            <div class="row">
+                                                <div class="col-md-4 mb-3">
+                                                    <span class="type-form-subgroup">
+                                                        {{ render_noError_field(typeForm.type1, class="form-control type1") }}
+                                                    </span>
+                                                </div>
+
+                                                <div class="col-md-4 mb-3">
+                                                    {{ render_noError_field(typeForm.supplier, class="form-control supplier") }}
+                                                    {{ render_noError_field(typeForm.model, class="form-control model") }}
+                                                </div>
+
+                                                <div class="col-md-4 mb-3">
+                                                    {{ render_field(typeForm.quantity, class="form-control quantity") }}
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                {% endfor %}
+
+                                <hr />
+                            
+                            </div>
+
+
+                            <!-- Component types form for specific tech -->
+                            <div class="row form-group type-multiple-form-group" data-min={{plantForm.types.min_entries}} data-max={{plantForm.types.max_entries}}>
+                                <div class="col-md-12 type-form-input-group">
+                                {% for typeForm in plantForm.types %}
+
+                                {% endfor %}
+                                </div>
+                            </div>
+
+                        </div>
+
+                    
+                    </div> 
+                                
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" name="submit-plantForm" class="btn btn-primary" value="plantForm">Save changes</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+<!-- JS file to allow adding components for each technologies checked-->
+<script src="{{url_for('static', filename='_addProject.js')}}"></script>
+<script src="{{url_for('static', filename='_addPlant.js')}}"></script>
+            
+
+{% endblock %}
+
+
+

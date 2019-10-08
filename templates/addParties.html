@@ -1,0 +1,70 @@
+{% extends "layout.html" %} 
+
+{% from "includes/_formhelpers.html" import
+render_field,
+render_noLabel_field,
+render_noError_field,
+render_pre_field,
+render_radio_field, 
+render_checkbox_field,
+render_text_field %} 
+
+
+{% block body %}
+
+<!-- TITLE -->
+<div class="py-5 text-left">
+    <h2><strong>Register A New Client</strong></strong></h2>
+</div>
+
+<!-- BEGINNING OF FORM -->
+<form id="ClientForm" action="/addClient" method="POST" class="needs-validation" novalidate="">
+    
+    <!-- DETAILS -->
+    <div class="row">
+
+        <!-- Plant Name -->
+        <div class="col-md-5 mb-3">
+            <h5 class="mb-3"><strong>Client Details</strong></h5>
+            <div class="form-group">              
+                {{ render_noLabel_field(form.name, placeholder="Full Client Name") }}
+                <br>
+                {{ render_noLabel_field(form.short, placeholder="Abbreviation") }}
+            </div>
+        </div>
+
+        <!-- Role -->
+        <div class="col-md-4 mb-3">
+            <h5 class="mb-3"><strong>Role</strong></h5>
+            <div class="form-group">
+                {{ render_noLabel_field(form.clientRole) }}
+            </div>
+        </div>
+
+        <!-- Confidentiality -->
+        <div class="col-md-3 mb-3">
+            <h5 class="mb-3"><strong>Confidentiality</strong></h5>
+            <div class="form-group">
+                {{ render_checkbox_field(form.confidential) }}
+            </div>
+        </div>
+
+    </div>
+
+    <!-- COMMENTS -->
+    <div class="row">
+        <div class="col-md-12 mb-3">
+            <h5 class="mb-3"><strong>Comments</strong></h5>
+            <div class="form-group">
+                {{ render_noLabel_field(form.comment, rows="3", placeholder="Anything worth mentioning") }}
+            </div>
+        </div>
+    </div>
+
+    <!-- SUBMIT -->
+    <button class="btn btn-primary btn-lg btn-block" type="submit">
+        Add Client
+    </button>
+</form>
+
+{% endblock %}

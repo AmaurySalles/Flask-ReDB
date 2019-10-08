@@ -1,0 +1,80 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+    {% if messages %}
+        <div class="jumbotron text-center">
+            <h4>{{ messages }}</h4>
+        </div>
+    {% endif %}
+
+    {% if projects_pp %}
+        <h3>Project Principal</h3>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Project Name</th>
+                    <th>Country</th>
+                    <th>Role</th>
+                    <th>Capacity (MWp)</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for project in projects_pp %}
+                    <tr>
+                        <td> {{ project.code }} </td>
+                        <td> {{ project.name }} </td>
+                        <td>
+                            {% for countries in project.countries %}
+                            {{ countries.name }}
+                            {% endfor %} 
+                        </td>
+                        <td> {{ project.role }} </td>
+                        <td> {{ project.capacity_dc }} </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+    
+    
+    
+    {% if projects_pm %}
+        <hr class="mb-3">
+        <br>
+        <h3>Project Manager</h3>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Project Name</th>
+                    <th>Country</th>
+                    <th>Role</th>
+                    <th>Capacity (MWp)</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for project in projects_pm %}
+                    <tr>
+                        <td> {{ project.code }} </td>
+                        <td> {{ project.name }} </td>
+                        <td>
+                            {% for countries in project.countries %}
+                            {{ countries.name }}
+                            {% endfor %} 
+                        </td>
+                        <td> {{ project.role }} </td>
+                        <td> {{ project.capacity_dc }} </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+
+
+{% endblock %}
