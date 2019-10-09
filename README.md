@@ -38,11 +38,11 @@ Note: This app does not use flask_wtf but imports from WTForms directly (due to 
 
 # Application Components:
 
-1. app.py       - Main python file which sets up and runs Flask application. Includes main server routes
-2. forms.py     - Secondary python file which sets up WTForms classes (forms)
-3. helpers.py   - Secondary python file which includes helpers python functions (which can can called from any route)
-4. models.py    - Secondary python file which sets up SQLAlchemy classes (models)
-5. test.py      - Secondary python file which includes sever routes to include test data 
+    app.py       - Main python file which sets up and runs Flask application. Includes main server routes
+    forms.py     - Secondary python file which sets up WTForms classes (forms)
+    helpers.py   - Secondary python file which includes helpers python functions (which can can called from any route)
+    models.py    - Secondary python file which sets up SQLAlchemy classes (models)
+    test.py      - Secondary python file which includes sever routes to include test data 
 
 
 
