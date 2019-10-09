@@ -1,6 +1,7 @@
 Flask
 Flask-Session
-psycopg2
+flask_sqlalchemy
 SQLAlchemy
+psycopg2
 WTForms
 gunicorn
