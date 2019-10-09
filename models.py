@@ -17,7 +17,6 @@
 
 
 ## IMPORT
-# from main application
 from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 
