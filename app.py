@@ -3,7 +3,6 @@
 # Newbie tips on SQLAlchemy - https://auth0.com/blog/sqlalchemy-orm-tutorial-for-python-developers/
 #                           - https://www.youtube.com/watch?v=YWFqtmGK0fk
 #                           - https://stackoverflow.com/questions/2136739/error-handling-in-sqlalchemy
-# Side note, Flask_SQLAlchemy is a level higher than SQLAlchemy
 
 
 
@@ -25,6 +24,8 @@ from flask_session import Session as flask_Session
 
 ## SQLAlchemy imports
 # Documentation of Flask_SQLAlchemy - http://flask-sqlalchemy.pocoo.org/2.3/
+# Flask_SQLAlchemy is a level higher than SQLAlchemy
+
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import asc, desc
 from sqlalchemy.exc import SQLAlchemyError
