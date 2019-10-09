@@ -7,8 +7,6 @@
 
 
 ## WTForms imports
-#from flask_wtf import FlaskForm as Form - does not completely work, due to compatibility following latest patch
-#from flask_wtf import FlaskForm
 from wtforms import Form
 from wtforms import StringField
 from wtforms import IntegerField
