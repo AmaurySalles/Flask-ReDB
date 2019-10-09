@@ -24,9 +24,6 @@ from flask_session import Session as flask_Session
 
 ## SQLAlchemy imports
 # Documentation of Flask_SQLAlchemy - http://flask-sqlalchemy.pocoo.org/2.3/
-# Flask_SQLAlchemy is a level higher than SQLAlchemy
-
-#from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import asc, desc
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.exc import IntegrityError
