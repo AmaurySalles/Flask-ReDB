@@ -4,7 +4,7 @@
 from app import app
 
 # Import SQLAlchemy engine from app.py
-from app import db
+from models import db
 
 # Flask imports
 from flask import redirect

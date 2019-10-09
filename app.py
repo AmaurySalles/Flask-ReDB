@@ -26,7 +26,7 @@ from flask_session import Session as flask_Session
 # Documentation of Flask_SQLAlchemy - http://flask-sqlalchemy.pocoo.org/2.3/
 # Flask_SQLAlchemy is a level higher than SQLAlchemy
 
-from flask_sqlalchemy import SQLAlchemy
+#from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import asc, desc
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.exc import IntegrityError
@@ -60,9 +60,17 @@ flask_Session(app)
 
 ## SQLALCHEMY DATABASE:
 
+#Import necessary classes from models.py
+from models import db
+#Link the app object to the RE Database 
+db.init_app(app)
+app.app_context().push()
+#Create the databases
+db.create_all()
+
 # Set up link to flask app
 # Autoflush = False to stop Postgres / SQLAlchemy errors from crashing application (i.e. error is handled by the different routes)
-db = SQLAlchemy(app, session_options={'autoflush': False})
+#db = SQLAlchemy(app, session_options={'autoflush': False})
 
 
 

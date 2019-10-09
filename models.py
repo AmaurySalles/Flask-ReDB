@@ -18,10 +18,8 @@
 
 ## IMPORT
 # from main application
-from app import db
-
-#from DbModels_Admin import Users
-#from DbModels_PlantDetails import Configurations
+from flask_sqlalchemy import SQLAlchemy
+db = SQLAlchemy()
 
 
 

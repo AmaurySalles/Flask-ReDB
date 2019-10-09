@@ -8,12 +8,11 @@
 
 ## WTForms imports
 #from flask_wtf import FlaskForm as Form - does not completely work, due to compatibility following latest patch
-from flask_wtf import FlaskForm
+#from flask_wtf import FlaskForm
 from wtforms import Form
-
-from wtforms import DecimalField
 from wtforms import StringField
 from wtforms import IntegerField
+from wtforms import DecimalField
 from wtforms import TextAreaField
 from wtforms import PasswordField
 from wtforms import RadioField
