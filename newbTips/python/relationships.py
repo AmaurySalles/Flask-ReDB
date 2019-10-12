@@ -54,3 +54,25 @@ class Parent(db.Model):
 
 class Child(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+
+
+
+
+
+
+# Create users:
+new_user = Users(user_id=6, name='Carlos Reyes',password='12345', staffnum='36548', email='carlos.reyes@mottmac.com')
+db.session.add(new_user)
+db.session.commit()
+
+# Count users:
+user_count = Users.query().count()
+print(user_count)
+
+# Retrieve all users (response is an array / list)
+all_users = Users.query().all()
+for user in all_users:
+    print(f'{user.name}, with staff number {user.staffnum} and email {user.email} is registered in database')
+
+# Retrieve certain users (response is an array / list)
+all_users = Users.query.filter_by().all()
