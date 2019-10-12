@@ -816,11 +816,10 @@ def filterTypes(component):
 ## HIDDEN ROUTES FOR RESETTING DATABASE
 
 @app.route('/addTestData')
-@login_required
 def addTestData():
     #Create the databases
     db.create_all()
-    
+
     test_Staff()
 
     test_Countries()
