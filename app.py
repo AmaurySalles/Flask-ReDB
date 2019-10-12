@@ -813,8 +813,7 @@ def filterTypes(component):
 @app.route('/addTestData')
 def addTestData():
 
-    #Create the databases
-    db.create_all()
+
 
     test_Staff()
 
@@ -2394,6 +2393,9 @@ def test_OtherSuppliers():
 
 ## RUN PROGRAM (WITH DEBUG MODE)
 if __name__ == '__main__':
+    #Create the databases
+    db.create_all()
+    # Run app
     app.run()
 
 
