@@ -186,8 +186,6 @@ def register():
         except IntegrityError:
             # Rollback changes
             db.session.rollback()
-
-            print(IntegrityError)
             
             # Inform of integrity error
             flash('Integrity Error! This user is already registered', 'danger')
@@ -224,9 +222,6 @@ def index():
 def allProjects():
     
     projects = db.session.query(Projects, Roles).outerjoin(Roles, Projects.role_id == Roles.id).all()
-    print(projects)
-    for project, roles in projects:
-        print(project.code)
 
     return render_template('allprojects.html', projects=projects)
 
@@ -404,7 +399,7 @@ def addPlant():
     # Link between WTForms (PlantForm) and html (request.form) -- to display and retrieve data
     plantForm = PlantForm(request.form)
     partyForm = PartyForm(request.form)
-    print(plantForm)
+
 
     # Initialisation of select fields (types and suppliers select fields are initialised later on (_addPlant.js), depending on component selected)
     plantForm.country.choices = [(country.id, country.name) for country in Countries.query.all()]
@@ -817,6 +812,7 @@ def filterTypes(component):
 
 @app.route('/addTestData')
 def addTestData():
+
     #Create the databases
     db.create_all()
 
@@ -2402,19 +2398,7 @@ if __name__ == '__main__':
 
 
 
-## TIPS:
 
-# Create users:
-#new_user = Users(user_id=6, name='Carlos Reyes',password='12345', staffnum='36548', email='carlos.reyes@mottmac.com')
-#db_session.add(new_user)
-#db_session.commit()
-
-# Retrieve users:
-#q_count = db_session.query(Users).count()
-#print(q_count)
-#q_user = db_session.query(Users).all()
-#for user in q_user:
-    #print(f'{user.name}, with staff number {user.staffnum} and email {user.email} is registered in database')
 
 '''
     All = Technologies.query.filter_by(short='all').first()
