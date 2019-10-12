@@ -1,24 +1,3 @@
-# STAGE_00 -> Setting up flask, and figuring out how to integrate postgres, SQLAlchemy, WTForms, Bootstrap.
-    ## Sorry, lost track of the number of sources used
-    # TODO - Find relevant sources to system configuration deployed.
-# STAGE_01 -> Testing Semantics UI but bakc-tracked and stayed with Bootstrap
-
-# STAGE_02 -> Building technologies & components (database tables & relationships + python / SQLAlchemy classes)
-
-# STAGE_03 -> Building wtform, janja & javascript to add any number of technologies & components to forms & web.
-# STAGE___ -> Build wtform and database mechanism to add multiple countries or components to a project
-    ## https://gist.github.com/doobeh/5d0f965502b86fee80fe
-    ## https://stackoverflow.com/questions/30121763/how-to-use-a-wtforms-fieldlist-of-formfields
-
-# STAGE_04 -> Re-design of database to accommodate for projects->plants->configs + implementation of all techs up to stage_03
-# STAGE_05 -> Create additonal views & searches (test Semantics UI again?)
-# STAGE_05 -> Implement portfolios & create update page (reverse of STAGE_03 - show fields info but editable)
-    ## https://stackoverflow.com/questions/29514798/filling-wtforms-formfield-fieldlist-with-data-results-in-html-in-fields
-# STAGE_06 -> Build permissions levels and @permissionRequired route
-# STAGE_07 -> Build security (flask tokens)
-
-
-
 # Renewable Energy Database
 
 This database uses:
