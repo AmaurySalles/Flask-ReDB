@@ -62,8 +62,7 @@ from models import db
 #Link the app object to the RE Database 
 db.init_app(app)
 app.app_context().push()
-#Create the databases
-db.create_all()
+
 
 # Set up link to flask app
 # Autoflush = False to stop Postgres / SQLAlchemy errors from crashing application (i.e. error is handled by the different routes)
@@ -819,7 +818,9 @@ def filterTypes(component):
 @app.route('/addTestData')
 @login_required
 def addTestData():
-
+    #Create the databases
+    db.create_all()
+    
     test_Staff()
 
     test_Countries()
@@ -850,7 +851,7 @@ def addTestData():
 def test_Staff():
 
 
-    user = Users(staffnum="123456", name="John Doe", passwordHash="admin", email="John.Doe@email.com")
+    user = Users(staffnum="123455", name="John Doe", passwordHash="admin", email="John.Doe@email.com")
     db.session.add(user)
 
     user = Users(staffnum="123457", name="Paul Smith", passwordHash="admin", email="Paul.Smith@email.com")
