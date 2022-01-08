@@ -61,7 +61,7 @@ class Child(db.Model):
 
 
 # Create users:
-new_user = Users(user_id=6, name='Carlos Reyes',password='12345', staffnum='36548', email='carlos.reyes@mottmac.com')
+new_user = Users(user_id=6, name='Carlos abc',password='12345', staffnum='36548', email='carlos.abc@email.com')
 db.session.add(new_user)
 db.session.commit()
 
